@@ -153,21 +153,21 @@ class App extends Component {
             <p style={{fontSize:15, }}>Size<span style={{color: '#C90000'}}>*</span></p>
             <ButtonToolbar>
               <ButtonGroup className="mr-2">
-                <Button style={this.state.cartItem.itemSize==="s"?{backgroundColor:'white', color:'black', borderWidth:2, borderColor:'black'}
+                <Button style={this.state.cartItem.itemSize==="s"?{backgroundColor:'white', color:'#222222', borderWidth:2, borderColor:'#222222'}
                               :
-                              {backgroundColor:'white', color:'#888888', borderColor:'#888888'}} 
+                              {backgroundColor:'white', color:'#888888', borderColor:'#cccccc'}} 
                         onClick={(e) => this.toggleItemSize(e)} name="itemSize" value="s">S</Button>
               </ButtonGroup>
               <ButtonGroup className="mr-2">
-                <Button style={this.state.cartItem.itemSize==="m"?{backgroundColor:'white', color:'black', borderWidth:2, borderColor:'black'}
+                <Button style={this.state.cartItem.itemSize==="m"?{backgroundColor:'white', color:'#222222', borderWidth:2, borderColor:'#222222'}
                               :
-                              {backgroundColor:'white', color:'#888888', borderColor:'#888888'}} 
+                              {backgroundColor:'white', color:'#888888', borderColor:'#cccccc'}} 
                         onClick={(e) => this.toggleItemSize(e)} name="itemSize" value="m" >M</Button>
               </ButtonGroup>
               <ButtonGroup >
-                <Button style={this.state.cartItem.itemSize==="l"?{backgroundColor:'white', color:'black', borderWidth:2, borderColor:'black'}
+                <Button style={this.state.cartItem.itemSize==="l"?{backgroundColor:'white', color:'#222222', borderWidth:2, borderColor:'#222222'}
                               :
-                              {backgroundColor:'white', color:'#888888', borderColor:'#888888'}} 
+                              {backgroundColor:'white', color:'#888888', borderColor:'#cccccc'}} 
                         onClick={(e) => this.toggleItemSize(e)} name="itemSize" value="l" >L</Button>
               </ButtonGroup>
             </ButtonToolbar>
