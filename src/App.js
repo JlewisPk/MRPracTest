@@ -8,7 +8,6 @@ import {
 
 import { connect } from 'react-redux';
 import { updateItem } from './actions/home-actions';
-import logo from './logo.svg';
 import './App.css';
 import classicTee from './asset/classic-tee.jpg';
 
@@ -16,6 +15,8 @@ class App extends Component {
   constructor(props) {
       super(props);
       this.state= {
+          width: 0,
+          height: 0,
           toggleSuccess: false,
           toggleAlert: false,
           dropdownOpen: false,
@@ -32,19 +33,30 @@ class App extends Component {
       this.toggle = this.toggle.bind(this);
       this.onUpdateItem = this.onUpdateItem.bind(this);
       // this.toggleItemSize = this.toggleItemSize.bind(this);
+      this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
   componentDidMount() {
-    this.assignInitial();
+    this.updateWindowDimensions();
+    this.assignInitial();  
+    
+    window.addEventListener('resize', this.updateWindowDimensions);
+    
+  }
+  
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight, dropdownOpen:false });
   }
   assignInitial = async () => {
     const storeData = store.getState();
     this.setState({currentCart:storeData.cart}, () => {
-      console.log('result: ', this.state.currentCart)
       this.forceUpdate();
     })
   }
   onUpdateItem = () => {
-    console.log('updating...')
     if (this.state.cartItem.itemSize === "") {
       this.setState({toggleAlert:true}, () =>{
         setTimeout(()=>{this.setState({toggleAlert:false})}, 4000);        
@@ -118,10 +130,10 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <p className={this.state.dropdownOpen?"ToggleOpen":"Toggle"} onMouseOver={this.toggle} onMouseOut={this.toggle}>My Cart ({totalItem})</p>
+          <p className={this.state.dropdownOpen?"ToggleOpen":"Toggle"} onClick={this.state.width<500?this.toggle:null} onMouseOver={this.state.width<500?null:this.toggle} onMouseOut={this.state.width<500?null:this.toggle}>My Cart ({totalItem})</p>
         </div>
         {this.state.dropdownOpen?
-          <div className="Cart-Item-Container">
+          <div className={this.state.width<500?"Cart-Item-Container-Small":"Cart-Item-Container"}>
             {this.state.currentCart.length === 0 ?
             <div className="Cart-Item">
               <div className="Cart-Item-Text">
@@ -143,7 +155,7 @@ class App extends Component {
         
         {/* <p className="App-intro"> */}
         <div className="App-Body">
-          <div className="App-Body-Image-Container">
+          <div className={this.state.width<500?"App-Body-Image-Container-Small":"App-Body-Image-Container"}>
             <img src={classicTee} className="Big-Item-Image" alt="logo" />
           </div>
           <div className="App-Body-Text-Container">
